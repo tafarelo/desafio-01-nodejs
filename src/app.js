@@ -33,7 +33,7 @@ app.put("/repositories/:id", (request, response) => {
   const projectIndex = repositories.findIndex(repositorie => repositorie.id === id);
 
   if (projectIndex < 0) {
-    response.status(404).json({err : "Projeto nao encontrado"})
+    response.status(400).json({err : "Projeto nao encontrado"})
   } else {
     const oldRepository = repositories[projectIndex];
     repositories[projectIndex] = {
@@ -52,10 +52,10 @@ app.delete("/repositories/:id", (request, response) => {
   const projectIndex = repositories.findIndex(repositorie => repositorie.id === id);
 
   if (projectIndex < 0) {
-    response.status(404).json({err : "Projeto nao encontrado"})
+    response.status(400).json({err : "Projeto nao encontrado"})
   } else {
     repositories.splice(projectIndex, 1);
-    response.status(200).json("Usuario deletado");
+    response.status(204).json("Usuario deletado");
   }
 });
 
@@ -64,7 +64,7 @@ app.post("/repositories/:id/like", (request, response) => {
   const projectIndex = repositories.findIndex(repositorie => repositorie.id === id);
 
   if (projectIndex < 0) {
-    response.status(404).json({err : "Projeto nao encontrado"})
+    response.status(400).json({err : "Projeto nao encontrado"})
   } else {
     repositories[projectIndex].likes = repositories[projectIndex].likes+=1;
     response.status(200).json(repositories[projectIndex]);
